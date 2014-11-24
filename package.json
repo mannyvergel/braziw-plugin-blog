@@ -1,0 +1,34 @@
+{
+  "name": "wateroo-plugin-blog",
+  "version": "1.0.0",
+  "description": "Blog plugin for Wateroo CMS",
+  "keywords": [
+  	"oils",
+    "passport",
+    "authentication",
+    "authorization"
+  ],
+  "author": {
+    "name": "Manny Vergel",
+    "email": "manny@mvergel.com",
+    "url": "http://www.mvergel.com/"
+  },
+  "homepage": "http://www.github.com/mannyvergel/wateroo-plugin-blog",
+  "repository": {
+    "type": "git",
+    "url": "https://www.github.com/mannyvergel/wateroo-plugin-blog.git"
+  },
+
+  "engines": {
+    "node": ">= 0.10.0"
+  },
+
+  "dependencies": {
+  },
+  "devDependencies": {},
+  "bundleDependencies": [],
+
+  "private": true,
+  "main": "wateroo-blog.js"
+  
+}
