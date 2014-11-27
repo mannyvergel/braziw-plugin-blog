@@ -24,6 +24,8 @@
   },
 
   "dependencies": {
+    "slug": "0.8.x",
+    "async": "0.2.x"
   },
   "devDependencies": {},
   "bundleDependencies": [],
