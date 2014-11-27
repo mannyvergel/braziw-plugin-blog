@@ -1,18 +1,32 @@
 module.exports = function(pluginConf, web) {
   var routes = new Object();
-  var context = web.cms.conf.context;
-  routes[context + '/blog'] = {
-	get: function(req, res) {
-		res.redirect(context + '/blog/list');
-	}
+
+  var context = '/blog';
+  routes[context] = {
+    get: function(req, res) {
+      res.redirect(context + '/list');
+    }
   }
+  var blogListRoute = (context + '/list');
+  routes[blogListRoute] = require('./controllers/blog/list.js')(pluginConf, web);
+  if (pluginConf.blogListRoute) {
+    routes[pluginConf.blogListRoute] = routes[blogListRoute];
+  }
+  routes[context + '/:BLOG_SLUG/:BLOG_ID'] = require('./controllers/blog/blog.js')(pluginConf, web);
 
-  routes[context + '/blog/new'] = require('./controllers/blog/new.js')(pluginConf, web);
 
-  routes[context + '/blog'] = {
-	get: function(req, res) {
-		res.redirect(context + '/blog/list');
-	}
+
+  var adminContext = web.cms.conf.context;
+
+  routes[adminContext + '/blog/new'] = require('./controllers/admin_blog/new.js')(pluginConf, web);
+  routes[adminContext + '/blog/edit/:BLOG_ID'] = require('./controllers/admin_blog/new.js')(pluginConf, web);
+
+  routes[adminContext + '/blog/list'] = require('./controllers/admin_blog/list.js')(pluginConf, web);
+
+  routes[adminContext + '/blog'] = {
+  	get: function(req, res) {
+  		res.redirect(adminContext + '/blog/list');
+  	}
   }
 
   routes['/css/plugin/blog/bootstrap.min.css'] = {

@@ -1,6 +1,6 @@
 {% extends _cms.conf.adminTemplate %}
 
-{% block title %}New Blog{% endblock %}
+{% block title %}{{pageTitle}}{% endblock %}
 
 {% block head %}
 
@@ -11,7 +11,7 @@
   <style>
   textarea.content {
   	padding: 12px;
-  	font-family: Inconsolata;
+  	font-family: Inconsolata, monospace;
   	font-size: 16px;
   }
 
@@ -40,7 +40,7 @@
     {%endif%}
     <input name="blogTitle" type="text" placeholder="Blog Title" value="{{blog.blogTitle}}" />
     <div class="hint">This blog editor uses Markdown syntax. (<a href="#">Learn more</a>)</div>
-    <textarea class="content" name="content" data-provide="markdown" rows="10">{{blog.content}}</textarea>
+    <textarea class="content" name="content" id="MARKDOWN_EDITOR" rows="10">{{blog.content}}</textarea>
    
     <label style="margin-top: 12px;">
       <input name="publish" type="checkbox" checked> Publish
@@ -61,5 +61,8 @@
   <script src="/js/plugin/blog/bootstrap.min.js"></script>	
   <script src="/js/plugin/blog/markdown.js"></script>	
   <script src="/js/plugin/blog/to-markdown.js"></script>	
-  <script src="/js/plugin/blog/bootstrap-markdown.js"></script>	
+  <script src="/js/plugin/blog/bootstrap-markdown.js"></script>
+  <script>
+  $("#MARKDOWN_EDITOR").markdown({height:400})
+  </script>	
 {% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'templates/main.html' %}
+
+{% block title %}{{blog.blogTitle}}{% endblock %}
+
+{% block head %}
+
+<style>
+.blog {
+	padding-bottom: 17px;
+}
+
+.blog h2 {
+}
+
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class="blog">
+	<a href="/blog/{{blog.blogSlug}}/{{blog._id}}"><h1 class="title">{{blog.blogTitle}}</h1></a>
+	<div class="gist">
+
+	{%marked%}{{blog.content}}{%endmarked%}
+
+	</div>
+</div>
+
+
+{% endblock %}
+
+
+{% block beforeEndBody %}
+
+{% endblock %}

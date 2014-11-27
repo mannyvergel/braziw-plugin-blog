@@ -1,15 +1,29 @@
 
 module.exports = function(pluginConf, web) {
-  var slug = require('slug');
+  
   var Blog = web.cms.getCmsModel('Blog');
   var dmsUtils = web.cms.utils;
   var async = require('async');
   var utils = require('../../utils.js');
 	return {
 		get: function(req, res) {
-      var blog = new Object();
-      blog._id = req.query.blogId;
-			res.render(pluginConf.pluginPath + '/views/blog/edit.html', {blog: blog});
+      var blogId = req.params.BLOG_ID;
+      if (blogId) {
+        Blog.findOne({_id: blogId}, function(err, blog) {
+          if (err) throw err;
+
+          if (!blog) {
+            req.flash('error', 'Blog not found');
+            res.redirect(web.cms.conf.context + '/blog/list');
+            return;
+          }
+          res.render(pluginConf.pluginPath + '/views/admin_blog/edit.html', {blog: blog, pageTitle: 'Update Blog'});
+        })
+      } else {
+        res.render(pluginConf.pluginPath + '/views/admin_blog/edit.html', {pageTitle: 'New Blog'});
+      }
+
+			
 		},
 
     post: function(req, res) {
@@ -34,7 +48,7 @@ module.exports = function(pluginConf, web) {
                 // console.log('!!!2')
                 done(new Error('Blog title is required.'))
               } else {
-                dmsUtils.createFileIfNotExist('/blogs/' + utils.getYear() + '/' + getBlogName(slug(blogTitle)), {docType: 'Blog'}, function(err, blog, exists) {
+                dmsUtils.createFileIfNotExist('/blogs/' + utils.getYear() + '/' + getBlogName(utils.slugify(blogTitle)), {docType: 'Blog'}, function(err, blog, exists) {
                   if (exists) {
                      //console.log('!!!3')
                     done(new Error('Blog of the similar title already exists'));
@@ -63,7 +77,7 @@ module.exports = function(pluginConf, web) {
               blog.content = new Buffer(req.body.content, 'utf-8');
             }
             req.flash('error', err.message);
-            res.render(pluginConf.pluginPath + '/views/blog/edit.html', {blog: blog});
+            res.render(pluginConf.pluginPath + '/views/admin_blog/edit.html', {blog: blog});
             return;
           }
 
@@ -79,7 +93,7 @@ module.exports = function(pluginConf, web) {
           
           if (createMode) {
             //create mode
-            blog.blogSlug = slug(blog.blogTitle);
+            blog.blogSlug = utils.slugify(blog.blogTitle);
 
             blog.name = getBlogName(blog.blogSlug);
             blog.blogYear = utils.getYear();
@@ -91,6 +105,7 @@ module.exports = function(pluginConf, web) {
             }
           } else {
             blog.blogStatus = 'D';
+            blog.blogPublishDate = null;
           }
           
 

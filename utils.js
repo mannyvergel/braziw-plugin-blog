@@ -1,20 +1,54 @@
+var slug = require('slug');
 
-exports.trim = function trim(s) {
-  if (!s) {
-    return "";
-  }
 
-  return s.trim();
+
+exports.isEmpty = function(str) {
+  return str == null || str.length == 0;
 }
 
-exports.isEmpty = function isEmpty(s) {
-  if (!s) {
-    return true;
-  }
 
-  return s.trim().length;
-}
-
-exports.getYear = function getYear() {
+exports.getYear = function() {
   return new Date().getFullYear();
 }
+
+exports.slugify = function(str) {
+	return slug(str).toLowerCase();
+}
+
+exports.trim = function(str) {
+  if (str) {
+    return str.replace(/^\s+|\s+$/, '');
+  }
+
+  return null;
+}
+
+exports.specialTruncate = function(str, limit, truncateSuffix) {
+  var bits, lengthCount = 0;
+  
+  bits = str.split('<br \/>');
+  var s = [];
+  
+  
+
+
+  for (var i in bits) {
+    var str = exports.trim(bits[i]);
+    if (!exports.isEmpty(str)) {
+      lengthCount += str.length;
+      if (lengthCount > limit) {
+        var excess = lengthCount - limit;
+        if (str.length > excess) {
+          s.push(str.substr(0, (str.length-1) - excess) + truncateSuffix);      
+        }
+        break;
+      }
+      
+        s.push(str);
+    
+    }
+  }
+
+  return s.join('<br /><br/>')
+
+};

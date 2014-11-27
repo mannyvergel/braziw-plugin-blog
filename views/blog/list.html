@@ -1,0 +1,34 @@
+{% extends 'templates/main.html' %}
+
+{% block title %}Blogs{% endblock %}
+
+{% block head %}
+
+<style>
+.blog {
+	margin-bottom: 17px;
+}
+
+.blog h2 {
+}
+
+</style>
+{% endblock %}
+
+{% block content %}
+
+{%for blog in table.records%}
+<div class="blog">
+	<a href="/blog/{{blog.blogSlug}}/{{blog._id}}"><h2 class="title">{{blog.blogTitle}}</h2></a>
+	<p class="gist">{{blog.gist|safe}}</p>
+</div>
+{%endfor%}
+
+
+
+{% endblock %}
+
+
+{% block beforeEndBody %}
+
+{% endblock %}
