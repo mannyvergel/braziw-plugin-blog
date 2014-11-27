@@ -4,59 +4,46 @@
 
 {% block head %}
 
-  <link href="/css/plugin/blog/ghostdown.css" media="all" rel="stylesheet">
+  <link href="/css/plugin/blog/bootstrap.min.css" media="all" rel="stylesheet">
+  <link href="/css/plugin/blog/bootstrap-markdown.min.css" media="all" rel="stylesheet">
   <link href='http://fonts.googleapis.com/css?family=Inconsolata' rel='stylesheet' type='text/css'>
+
+  <style>
+  textarea.content {
+  	padding: 12px;
+  }
+
+  .md-preview {
+  	padding: 12px;
+  }
+  .md-preview p {
+  	padding: 0;
+  	margin: 0;
+  }
+
+  .hint {
+  	color: #999;
+  	font-size: 12px;
+  	margin-bottom: 4px;
+  }
+  </style>
 {% endblock %}
 
 {% block content %}
 
 
-<form method="POST">
-<input placeholder="Title" type="text" style="width: 100%" />
-
-
-<div class="features">
-		
-		<section class="editor">
-			<div class="outer">
-				<div class="editorwrap">
-					<section class="entry-markdown">
-						<header class="floatingheader">
-							&nbsp;&nbsp; Markdown 
-						</header>
-						<section class="entry-markdown-content">
-<textarea id="entry-markdown">Ghost has an incredibly simple concept for writing. You write in [Markdown](http://daringfireball.net/markdown) on the left, and you see an immediate preview of exactly what your post will look like in rendered HTML on the right.
-
-###The Benefits Are Obvious!
-
-* Never stop writing, format on the fly
-* No messing around with *buttons* everywhere
-* No writing repetitive HTML markup
-* Mobile friendly
-
-It's a wonderful solution to a problem which bloggers have faced for many years now.
-
-> Applying a multitude of formatting styles, with very little effort, and seeing those styles rendered exactly as they will appear on the website.
-
-Give it a try! Start typing in the `Markdown` box. It's easy.</textarea>
-						</section>
-					</section>
-					<section class="entry-preview active">
-						<header class="floatingheader">
-						  &nbsp;&nbsp; Preview <span class="entry-word-count">0 words</span>
-						</header>
-						<section class="entry-preview-content">
-							<div class="rendered-markdown"></div>
-						</section>
-					</section>
-				</div>
-			</div>
-		</section>
-		
-	</div>
-
-
-</form>
+  <form method="post">
+    <input name="title" type="text" placeholder="Blog Title" />
+    <div class="hint">This blog uses Markdown syntax.</div>
+    <textarea class="content" name="content" data-provide="markdown" rows="10"></textarea>
+   
+    <label style="margin-top: 12px;">
+      <input name="publish" type="checkbox" checked> Publish
+    </label>
+   
+    <hr/>
+    <button type="submit" class="tiny btn">Save</button>
+  </form> 
 
 
 
@@ -66,5 +53,8 @@ Give it a try! Start typing in the `Markdown` box. It's easy.</textarea>
 {% block beforeEndBody %}
 
 
-  <script src="/js/plugin/blog/ghostdown.js"></script>	
+  <script src="/js/plugin/blog/bootstrap.min.js"></script>	
+  <script src="/js/plugin/blog/markdown.js"></script>	
+  <script src="/js/plugin/blog/to-markdown.js"></script>	
+  <script src="/js/plugin/blog/bootstrap-markdown.js"></script>	
 {% endblock %}
