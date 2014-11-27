@@ -97,6 +97,10 @@ module.exports = function(pluginConf, web) {
 
             blog.name = getBlogName(blog.blogSlug);
             blog.blogYear = utils.getYear();
+
+            if (req.user) {
+              blog.meta.createBy = req.user._id;
+            }
           }
           if (req.body.publish) {
             blog.blogStatus = 'A';
@@ -106,6 +110,16 @@ module.exports = function(pluginConf, web) {
           } else {
             blog.blogStatus = 'D';
             blog.blogPublishDate = null;
+          }
+
+          if (req.body.anonymous) {
+            blog.blogAnonymousInd = 'Y';
+          } else {
+            blog.blogAnonymousInd = 'N';
+          }
+
+          if (req.user) {
+            blog.meta.lastUpdateBy = req.user._id;
           }
           
 

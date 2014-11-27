@@ -18,10 +18,6 @@
   .md-preview {
   	padding: 12px;
   }
-  .md-preview p {
-  	padding: 0;
-  	margin: 0;
-  }
 
   .hint {
   	color: #999;
@@ -39,12 +35,18 @@
     <input name="_id" type="hidden" value="{{blog._id}}" />
     {%endif%}
     <input name="blogTitle" type="text" placeholder="Blog Title" value="{{blog.blogTitle}}" />
-    <div class="hint">This blog editor uses Markdown syntax. (<a href="#">Learn more</a>)</div>
+    <div class="hint">This blog editor uses Markdown syntax. (<a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Here-Cheatsheet" target="_blank">Learn more</a>)</div>
     <textarea class="content" name="content" id="MARKDOWN_EDITOR" rows="10">{{blog.content}}</textarea>
    
-    <label style="margin-top: 12px;">
-      <input name="publish" type="checkbox" checked> Publish
+    <div style="margin-top: 12px;">
+    <label>
+      <input name="publish" type="checkbox" {%if blog.blogStatus != 'D'%}checked{%endif%}> Publish
     </label>
+
+    <label>
+      <input name="anonymous" type="checkbox" {%if blog.blogAnonymousInd == 'Y'%}checked{%endif%}> Anonymous
+    </label>
+    </div>
    	<div style="margin-top: 17px">
     <button type="submit" class="tiny btn">Save</button>
     </div>

@@ -1,6 +1,6 @@
 module.exports = function(pluginConf, web) {
 	var Blog = web.cms.getCmsModel('Blog');
-
+	var User = web.models('User');
 	return {
 		get: function(req, res) {
 			var blogId = req.params.BLOG_ID;
@@ -12,7 +12,11 @@ module.exports = function(pluginConf, web) {
 					throw Error('Blog not found.');
 				}
 
-				res.render(pluginConf.pluginPath + '/views/blog/blog.html', {blog: blog});
+
+				User.findOne({_id: blog.meta.createBy}, function(err, author) {
+					res.render(pluginConf.pluginPath + '/views/blog/blog.html', {blog: blog, author: author});	
+				})
+				
 			})
 		}
 	}

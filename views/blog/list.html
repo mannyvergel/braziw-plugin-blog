@@ -17,12 +17,19 @@
 
 {% block content %}
 
+{%if table.count != 0 %}
 {%for blog in table.records%}
 <div class="blog">
 	<a href="/blog/{{blog.blogSlug}}/{{blog._id}}"><h2 class="title">{{blog.blogTitle}}</h2></a>
-	<p class="gist">{{blog.gist|safe}}</p>
+	<p class="content">{{blog.gist|safe}}</p>
 </div>
 {%endfor%}
+{%else%}
+<div class="blog">
+	
+	<p class="content">Looks like you don't have any blog entries yet; <a href="/admin/blog/new">start writing now</a>.</p>
+</div>
+{%endif%}
 
 
 

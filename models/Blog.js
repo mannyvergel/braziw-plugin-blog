@@ -7,7 +7,8 @@ module.exports = {
     blogSlug: {type: String},
     blogStatus: {type: String},
     blogYear: {type: Number},
-    blogPublishDate: {type: Date}
+    blogPublishDate: {type: Date},
+    blogAnonymousInd: {type: String}
   },
 
   initSchema: function(schema){
@@ -22,6 +23,7 @@ module.exports = {
   {"name": "blogStatus", "type": "text", "label": "Status"},
   {"name": "blogYear", "type": "text", "label": "Year"},
   {"name": "blogPublishDate", "type": "text", "label": "Publish Date"},
+  {"name": "blogAnonymousInd", "type": "text", "label": "Anonymous"},
   {"name": "content", "type": "file", "label": "Content"}  
     ]
 
