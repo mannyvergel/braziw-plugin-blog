@@ -9,7 +9,12 @@
 
 {% block content %}
 
-<h1>Blog List</h1>
+<h1>All Posts</h1>
+{%if _user and _user.role == 'EDITOR'%}
+<div class="panel callout">
+You are an editor, you will be able to see posts by other and edit them as needed.
+</div>
+{%endif%}
 
 {{table|safe}}
 

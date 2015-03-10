@@ -2,11 +2,7 @@ module.exports = function(pluginConf, web) {
   var routes = new Object();
 
   var context = '/blog';
-  routes[context] = {
-    get: function(req, res) {
-      res.redirect(context + '/list');
-    }
-  }
+
   var blogListRoute = (context + '/list');
   routes[blogListRoute] = require('./controllers/blog/list.js')(pluginConf, web);
   if (pluginConf.blogListRoute) {
@@ -14,14 +10,23 @@ module.exports = function(pluginConf, web) {
   }
   routes[context + '/:BLOG_SLUG/:BLOG_ID'] = require('./controllers/blog/blog.js')(pluginConf, web);
 
-
+  routes[context] = {
+    get: function(req, res) {
+      if (pluginConf.blogListRoute) {
+        res.redirect(pluginConf.blogListRoute);
+      } else {
+        res.redirect(context + '/list');
+      }
+    }
+  }
 
   var adminContext = web.cms.conf.context;
 
   routes[adminContext + '/blog/new'] = require('./controllers/admin_blog/new.js')(pluginConf, web);
   routes[adminContext + '/blog/edit/:BLOG_ID'] = require('./controllers/admin_blog/new.js')(pluginConf, web);
-
+  routes[adminContext + '/blog/preview'] = require('./controllers/admin_blog/preview.js')(pluginConf, web);
   routes[adminContext + '/blog/list'] = require('./controllers/admin_blog/list.js')(pluginConf, web);
+  routes[adminContext + '/blog/delete'] = require('./controllers/admin_blog/delete.js');
 
   routes[adminContext + '/blog'] = {
   	get: function(req, res) {

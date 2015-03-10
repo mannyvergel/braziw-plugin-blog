@@ -12,15 +12,18 @@ module.exports = function(pluginConf, web) {
 				  sort: {'blogPublishDate': -1},
 				  handlers: {
 				  	gist: function(record, column, escapedVal, callback) {
-				  		var str = S(marked(record.content.toString())).stripTags().s;
-				  		var gist = utils.specialTruncate(str, 400, '.. <a href="' + record.link + '">read more</a>');
-
+				  		var gist = null;
+				  		if (record.content) {
+					  		var str = S(marked(record.content.toString())).stripTags('img').s;
+					  		gist = utils.specialTruncate(str, 400, '.. <a href="/blog/' + record.blogSlug + '/' + record._id + '">read more</a>');
+					  	}
 				  		callback(null, gist);
 				  	}
 				  }
 				}, 
 				function(err, tableObj) {
-					res.render(pluginConf.pluginPath + '/views/blog/list.html', {table: tableObj});
+					pluginConf.blogListTitle = pluginConf.blogListTitle || 'Blog List';
+					res.render(pluginConf.pluginPath + '/views/blog/list.html', {table: tableObj, blogListTitle: pluginConf.blogListTitle});
 			});
 		}
 	}

@@ -18,7 +18,7 @@ module.exports = function WaterooBlog(pluginConf, web, next) {
   var dmsUtils = web.cms.utils;
   web.syspars.get('BLOG_RUN_ONCE', function(err, syspar) {
     if (!syspar) {
-      dmsUtils.mkdirs('/blogs');
+      dmsUtils.mkdirs('/blogs', function() {});
       web.syspars.set('BLOG_RUN_ONCE', 'Y');
     }
     next();

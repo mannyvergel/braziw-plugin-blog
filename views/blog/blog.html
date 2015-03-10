@@ -25,21 +25,41 @@
 	margin-top: 34px;
 }
 
+.back-to-list {
+	margin-bottom: 12px;
+}
+
+.content .ad {
+	float: right;
+	margin: 12px 0 12px 17px;
+}
+
+@media only screen and (max-width: 500px) {
+	.content .ad {
+		float: none;
+		margin: 12px auto;
+	}
+}
+
 </style>
 {% endblock %}
 
 {% block content %}
 
-<div class="blog">
-	<a href="/blog/{{blog.blogSlug}}/{{blog._id}}"><h1 class="title">{{blog.blogTitle}}</h1></a>
-	
-	<div class="content">
+{%if not isPreview %}
+<div class="back-to-list"><a href="/">&larr; Back to the list</a></div>
+{%endif%}
 
+<article itemscope itemtype="http://schema.org/BlogPosting">
+<div class="blog">
+	<h1 class="title" itemprop="name">{{blog.blogTitle}}</h1>
+	
+	<div class="content"  itemprop="articleBody">
+		<div class="ad large-rectangle">
+			{%include "inc/large-rect-ad.html"%}
+		</div>
 	{%marked%}{{blog.content}}{%endmarked%}
 
-	</div>
-
-	<div class="share">
 	</div>
 
 	<div class="additional-info">
@@ -50,16 +70,17 @@
 	<div class="field">Author: {{author.fullname}}</div>
 	{%endif%}
 	{%endif%}
-	<div class="field">Published on {{blog.blogPublishDate | date('MMMM Do YYYY')}}</div>
+	<div class="field"><time datetime="{{blog.blogPublishDate | date('YYYY-MM-DD')}}">Published on {{blog.blogPublishDate | date('MMMM Do YYYY')}}</time></div>
 	
 	</div>
 
+	{%if not isPreview %}
 	<div class="comments">
 	    <div id="disqus_thread"></div>
 	    <script type="text/javascript">
 	        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
 	        var disqus_shortname = 'braziw'; // required: replace example with your forum shortname
-
+	        var disqus_identifier = '{{blog._id}}';
 	        /* * * DON'T EDIT BELOW THIS LINE * * */
 	        (function() {
 	            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
@@ -70,14 +91,17 @@
 	    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 	    
 	</div>
-</div>
+	{%endif%}
 
+
+</div>
+</article>
 
 {% endblock %}
 
 
 {% block beforeEndBody %}
-<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-52ebd5293dcb9a95" async="async"></script>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-548a4a903bda2694" async="async"></script>
 
 
 

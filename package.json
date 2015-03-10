@@ -1,12 +1,12 @@
 {
-  "name": "wateroo-plugin-blog",
-  "version": "1.0.0",
-  "description": "Blog plugin for Wateroo CMS",
+  "name": "braziw-plugin-blog",
+  "version": "1.0.1",
+  "description": "Blog plugin for Braziw CMS",
   "keywords": [
   	"blog",
     "plugin",
     "oils",
-    "wateroo",
+    "braziw",
     "cms",
     "content management system"
   ],
@@ -15,10 +15,10 @@
     "email": "manny@mvergel.com",
     "url": "http://www.mvergel.com/"
   },
-  "homepage": "http://www.github.com/mannyvergel/wateroo-plugin-blog",
+  "homepage": "http://www.github.com/mannyvergel/braziw-plugin-blog",
   "repository": {
     "type": "git",
-    "url": "https://www.github.com/mannyvergel/wateroo-plugin-blog.git"
+    "url": "https://www.github.com/mannyvergel/braziw-plugin-blog.git"
   },
 
   "engines": {
@@ -35,6 +35,6 @@
   "bundleDependencies": [],
 
   "private": true,
-  "main": "wateroo-blog.js"
+  "main": "blog.js"
   
 }

@@ -1,7 +1,5 @@
 var slug = require('slug');
 
-
-
 exports.isEmpty = function(str) {
   return str == null || str.length == 0;
 }
@@ -25,8 +23,8 @@ exports.trim = function(str) {
 
 exports.specialTruncate = function(str, limit, truncateSuffix) {
   var bits, lengthCount = 0;
-  
-  bits = str.split('<br \/>');
+  str = str.replace(new RegExp('<p>','g'),'');
+  bits = str.split('</p>');
   var s = [];
   
   
@@ -39,16 +37,20 @@ exports.specialTruncate = function(str, limit, truncateSuffix) {
       if (lengthCount > limit) {
         var excess = lengthCount - limit;
         if (str.length > excess) {
-          s.push(str.substr(0, (str.length-1) - excess) + truncateSuffix);      
+          s.push(wrapSpecial(str.substr(0, (str.length-1) - excess) + truncateSuffix));      
         }
         break;
       }
       
-        s.push(str);
+        s.push(wrapSpecial(str));
     
     }
   }
 
-  return s.join('<br /><br/>')
+  return s.join('')
 
 };
+
+function wrapSpecial(str) {
+  return '<p>' + str + '</p>';
+}

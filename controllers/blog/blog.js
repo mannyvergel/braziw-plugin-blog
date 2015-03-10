@@ -14,7 +14,10 @@ module.exports = function(pluginConf, web) {
 
 
 				User.findOne({_id: blog.meta.createBy}, function(err, author) {
-					res.render(pluginConf.pluginPath + '/views/blog/blog.html', {blog: blog, author: author});	
+					res.render(pluginConf.pluginPath + '/views/blog/blog.html', {blog: blog, author: author});
+					if (web.pageTracker) {
+	          			web.pageTracker(req, blogId, 'blog');
+	          		}
 				})
 				
 			})

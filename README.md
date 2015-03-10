@@ -1,4 +1,4 @@
-wateroo-plugin-blog
+braziw-plugin-blog
 ===================
 
-Blog plugin for Wateroo CMS
+Blog plugin for Braziw CMS

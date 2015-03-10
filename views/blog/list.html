@@ -1,6 +1,6 @@
 {% extends 'templates/main.html' %}
 
-{% block title %}Blogs{% endblock %}
+{% block title %}{{blogListTitle}}{% endblock %}
 
 {% block head %}
 
@@ -20,8 +20,8 @@
 {%if table.count != 0 %}
 {%for blog in table.records%}
 <div class="blog">
-	<a href="/blog/{{blog.blogSlug}}/{{blog._id}}"><h2 class="title">{{blog.blogTitle}}</h2></a>
-	<p class="content">{{blog.gist|safe}}</p>
+	<a href="/blog/{{blog.blogSlug}}/{{blog._id}}"><h1 class="title">{{blog.blogTitle|safe}}</h1></a>
+	<div class="content">{{blog.gist|safe}}</div>
 </div>
 {%endfor%}
 {%else%}
