@@ -1,9 +1,9 @@
 {
   "name": "braziw-plugin-blog",
-  "version": "1.0.1",
+  "version": "3.1.0",
   "description": "Blog plugin for Braziw CMS",
   "keywords": [
-  	"blog",
+    "blog",
     "plugin",
     "oils",
     "braziw",
@@ -20,21 +20,15 @@
     "type": "git",
     "url": "https://www.github.com/mannyvergel/braziw-plugin-blog.git"
   },
-
   "engines": {
     "node": ">= 0.10.0"
   },
-
   "dependencies": {
-    "slug": "0.8.x",
-    "async": "0.2.x",
-    "marked": "~0.3.2",
-    "string": "~2.1.0"
+    "slug": "1.1.x",
+    "async": "0.2.x"
   },
   "devDependencies": {},
   "bundleDependencies": [],
-
   "private": false,
   "main": "blog.js"
-  
 }

@@ -1,8 +1,7 @@
 module.exports = function(pluginConf, web) {
 	var Blog = web.cms.getCmsModel('Blog');
   	var utils = require('../../utils.js');
-  	var marked = require('marked');
-	var S = require('string');
+  	var marked = web.require('marked');
 	return {
 		get: function(req, res) {
 
@@ -14,8 +13,9 @@ module.exports = function(pluginConf, web) {
 				  	gist: function(record, column, escapedVal, callback) {
 				  		var gist = null;
 				  		if (record.content) {
-					  		var str = S(marked(record.content.toString())).stripTags('img').s;
-					  		gist = utils.specialTruncate(str, 400, '.. <a href="/blog/' + record.blogSlug + '/' + record._id + '">read more</a>');
+				  			var rawContent = marked(record.content.toString()) || "";
+				  			var contentWoImg = rawContent.replace(/<img[^>]*>/g, "");
+					  		gist = utils.specialTruncate(contentWoImg, 400, '.. <a href="/blog/' + record.blogSlug + '/' + record._id + '">read more</a>');
 					  	}
 				  		callback(null, gist);
 				  	}
